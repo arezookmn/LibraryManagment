@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace ServiceContracts.DTO
 {
-    public class Author
+    public class AuthorAddRequest
     {
-        [Key]
-        public int ID { get; set; }
-
-        [StringLength(50 , ErrorMessage = "The Name field cannot exceed 50 characters.")]
+        [StringLength(50, ErrorMessage = "The Name field cannot exceed 50 characters.")]
         [Required(ErrorMessage = "The Name field is required.")]
         public string? Name { get; set; }
 
@@ -22,7 +20,7 @@ namespace Entities
         public DateTime BirthDate { get; set; }
 
         //[Required(ErrorMessage = "The Nationality field is required.")]
-        [StringLength(50 , ErrorMessage = "The Nationality field cannot exceed 50 characters.")]
+        [StringLength(50, ErrorMessage = "The Nationality field cannot exceed 50 characters.")]
         public string? Nationality { get; set; }
 
         //[Required(ErrorMessage = "The Biography field is required.")]
@@ -31,6 +29,18 @@ namespace Entities
 
 
         // Navigation property
-        public ICollection<Book>? Books { get; set; }
+        //public ICollection<Book>? Books { get; set; }
+
+
+        public Author ToAuthor()
+        {
+            return new Author
+            {
+                Name = Name,
+                BirthDate = BirthDate,
+                Nationality = Nationality,
+                Biography = Biography
+            };
+        }
     }
 }

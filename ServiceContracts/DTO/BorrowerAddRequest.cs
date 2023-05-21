@@ -1,17 +1,15 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace ServiceContracts.DTO
 {
-    public class Borrower
+    public class BorrowerAddRequest
     {
-        [Key]
-        public int ID { get; set; }
-
         [Required(ErrorMessage = "The First Name field is required.")]
         [StringLength(50, ErrorMessage = "The First Name field cannot exceed 50 characters.")]
         public string? FirstName { get; set; }
@@ -37,8 +35,17 @@ namespace Entities
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-
-        // Navigation property
-        public ICollection<Loan>? Loans { get; set; }
+        public Borrower ToBorrower() 
+        {
+            return new Borrower()
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                Email = Email,
+                PhoneNumber = PhoneNumber,
+                Address = Address,
+                DateOfBirth = DateOfBirth
+            };
+        }
     }
 }

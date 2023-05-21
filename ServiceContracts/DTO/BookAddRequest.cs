@@ -1,22 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Entities
+namespace ServiceContracts.DTO
 {
-    public class Book
+    /// <summary>
+    /// DTO class for adding a new book 
+    /// </summary>
+    public class BookAddRequest
     {
-        //Book Entity:
-
-        //ID(int)
-        //Title(string)
-        //Author(string)
-        //ISBN(string)
-        //PublicationDate(DateTime)
-        //NumberOfPages(int)
-        //Quantity(int)
-        [Key]
-        public int ID { get; set; }
-
         [Required(ErrorMessage = "The Title field is required.")]
         public string? Title { get; set; }
 
@@ -38,13 +35,17 @@ namespace Entities
         [Range(0, int.MaxValue, ErrorMessage = "The Quantity field must be a non-negative integer.")]
         public int Quantity { get; set; }
 
-
-
-        // Navigation property
-        [ForeignKey("AuthorID")]
-        public Author? Author { get; set; }
-
+        public Book ToBook()
+        {
+            return new Book()
+            {
+                Title= Title,
+                AuthorID= AuthorID,
+                ISBN= ISBN,
+                PublicationDate= PublicationDate,
+                NumberOfPages= NumberOfPages,
+                Quantity=Quantity
+            };
+        }
     }
-
-
 }
