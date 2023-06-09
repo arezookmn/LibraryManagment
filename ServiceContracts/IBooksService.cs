@@ -10,42 +10,31 @@ namespace ServiceContracts
 {
     public interface IBooksService
     {
-        /// <summary>
-        /// Adds a new book to the library.
-        /// </summary>
-        /// <param name="bookRequest">The book details to add.</param>
-        /// <returns>The added book details.</returns>
-        BookResponse AddBook(BookAddRequest bookAddRequest);
+        Task<BookResponse> AddBookAsync(BookAddRequest bookAddRequest);
 
-        /// <summary>
-        /// Retrieves a book by its ID.
-        /// </summary>
-        /// <param name="bookId">The ID of the book to retrieve.</param>
-        /// <returns>The book details.</returns>
-        BookResponse GetBookById(int bookId);
+        Task<BookResponse> GetBookByIdAsync(int? bookId);
+        Task<IEnumerable<BookResponse>> GetAllBooksAsync();
+        Task<BookResponse> DeleteBookAsync(int? bookId);
+        Task<IEnumerable<BookResponse>> BookSearchByAcync(string field, string searchValue);
+        Task<IEnumerable<BookResponse>> GetSortedBookAsync(IEnumerable<BookResponse> allPersons, string sortBy, SortOrderOptions sortOrder);
+        Task<bool> IsBookAvailableAsync(int bookId);
+        Task<IEnumerable<BookResponse>> GetAvailableBooksAsync();
+        Task<bool> ExistsByISBNAsync(string ISBN);
+        Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int authorId);
+        Task<IEnumerable<BookResponse>> GetMostBorrowedBooksAsync(int count); 
 
-        /// <summary>
-        /// Retrieves all books in the library.
-        /// </summary>
-        /// <returns>A collection of book details.</returns>
-        IEnumerable<BookResponse> GetAllBooks();
-
-        /// <summary>
-        /// Deletes a book from the library.
-        /// </summary>
-        /// <param name="bookId">The ID of the book to delete.</param>
-        BookResponse DeleteBook(int bookId);
-
-        /// <summary>
-        /// search for book ansed on field and then the fieldvalue
-        /// </summary>
-        /// <param name="field"></param>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
-        BookResponse BookSearchBy(string field, string searchValue);
-        List<BookResponse> GetSortedBook(List<BookResponse> allPersons, string sortBy, SortOrderOptions sortOrder);
         //UpdateBook(BookUpdateRequest bookUpdate)
+
         //GetBookByOtherFields  : for example GetBooksByAuthor(string authorName)
+
+        // Task<IEnumerable<BookResponseDTO>> GetMostBorrowedBooksAsync(int count);
+        //Task<BorrowerResponse> GetBorrowerOfBookAsync(int bookId);
+        //Task<IEnumerable<LoanResponse>> GetLoanHistoryOfBookAsync(int bookId);
+        //Task<IEnumerable<BookResponse>> GetOverdueBooksAsync();
+        //Task<IEnumerable<BookResponse>> GetBooksByBorrowerAsync(int borrowerId);
+        //Task<BookResponse> BorrowBookAsync(int bookId, int borrowerId);
+        //Task<BookResponse> ReturnBookAsync(int bookId);
+        //Task<IEnumerable<BookResponse>> GetBooksByAuthorAsync(string authorName);
 
     }
 }

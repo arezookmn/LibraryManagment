@@ -19,12 +19,10 @@ namespace Entities
         [Required(ErrorMessage = "Return date is required.")]
         public DateTime? ReturnDate { get; set; }
 
-        [ForeignKey("Book")]
         [Required(ErrorMessage = "Book is required.")]
         public int BookID { get; set; }
         //public Book Book { get; set; }
 
-        [ForeignKey("Borrower")]
         [Required(ErrorMessage = "Borrower is required.")]
         public int BorrowerID { get; set; }
 

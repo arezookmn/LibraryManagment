@@ -28,10 +28,16 @@ namespace Entities
             modelBuilder.Entity<Book>().ToTable("Loans");
             modelBuilder.Entity<Book>().ToTable("Authors");
 
+            modelBuilder.Entity<Book>()
+            .Property(b => b.ID)
+            .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Author>()
+            .Property(a => a.ID)
+            .ValueGeneratedOnAdd();
 
-                // Book seed data
-                modelBuilder.Entity<Book>().HasData(
+            // Book seed data
+            modelBuilder.Entity<Book>().HasData(
             new Book { ID = 1, Title = "The Great Gatsby", AuthorID = 1, ISBN = "9780743273565", PublicationDate = new DateTime(1925, 4, 10), NumberOfPages = 218, Quantity = 5 },
             new Book { ID = 2, Title = "To Kill a Mockingbird", AuthorID = 2, ISBN = "9780061120084", PublicationDate = new DateTime(1960, 7, 11), NumberOfPages = 324, Quantity = 3 },
             new Book { ID = 3, Title = "1984", AuthorID = 3, ISBN = "9780451524935", PublicationDate = new DateTime(1949, 6, 8), NumberOfPages = 328, Quantity = 7 },

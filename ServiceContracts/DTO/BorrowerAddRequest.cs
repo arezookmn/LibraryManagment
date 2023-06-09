@@ -35,9 +35,9 @@ namespace ServiceContracts.DTO
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
 
-        public Borrower ToBorrower() 
+        public Entities.Borrower ToBorrower() 
         {
-            return new Borrower()
+            return new Entities.Borrower()
             {
                 FirstName = FirstName,
                 LastName = LastName,

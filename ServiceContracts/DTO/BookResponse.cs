@@ -16,14 +16,11 @@ namespace ServiceContracts.DTO
     {
         public int ID { get; set; }
 
-        [Display(Name = "Title")]
-        public string Title { get; set; }
+        public string? Title { get; set; }
 
-        [Display(Name = "Author")]
         public int AuthorID { get; set; }
 
-        [Display(Name = "ISBN")]
-        public string ISBN { get; set; }
+        public string? ISBN { get; set; }
 
         [Display(Name = "Publication Date")]
         public DateTime PublicationDate { get; set; }
@@ -31,8 +28,10 @@ namespace ServiceContracts.DTO
         [Display(Name = "Number of Pages")]
         public int NumberOfPages { get; set; }
 
-        [Display(Name = "Quantity")]
         public int Quantity { get; set; }
+
+       // public int Count { get; set; } // New property for count
+
     }
 
     public static class BookExtentions

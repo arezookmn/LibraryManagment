@@ -19,8 +19,6 @@ namespace Entities
 
         [Required(ErrorMessage = "The Title field is required.")]
         public string? Title { get; set; }
-
-        [ForeignKey("Author")]
         public int AuthorID { get; set; }
 
         //[Required(ErrorMessage = "The ISBN field is required.")]

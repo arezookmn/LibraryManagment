@@ -16,8 +16,7 @@ namespace ServiceContracts.DTO
     {
         [Required(ErrorMessage = "The Title field is required.")]
         public string? Title { get; set; }
-
-        [ForeignKey("Author")]
+        [Required(ErrorMessage = "The Author Id is required ")]
         public int AuthorID { get; set; }
 
         //[Required(ErrorMessage = "The ISBN field is required.")]
@@ -29,10 +28,10 @@ namespace ServiceContracts.DTO
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? PublicationDate { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "The Number of Pages field must be a positive integer.")]
+        [Range(1, 10000, ErrorMessage = "The Number of Pages field must be a positive integer.")]
         public int NumberOfPages { get; set; }
 
-        [Range(0, int.MaxValue, ErrorMessage = "The Quantity field must be a non-negative integer.")]
+        [Range(0, 1000, ErrorMessage = "The Quantity field must be a non-negative integer.")]
         public int Quantity { get; set; }
 
         public Book ToBook()
