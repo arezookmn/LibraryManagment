@@ -11,19 +11,19 @@ namespace ServiceContracts
     {
         Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest authorRequest);
 
-        Task<AuthorResponse> GetAuthorByIdAsync(int authorId);
+        Task<AuthorResponse?> GetAuthorByIdAsync(int? authorId);
 
         Task<IEnumerable<AuthorResponse>> GetAllAuthorsAsync();
 
-        Task<IEnumerable<AuthorResponse>> SearchAuthorsAsync(string searchTerm);
+        Task<IEnumerable<AuthorResponse>> SearchAuthorsAsync(string? searchTerm);
 
         //Task<AuthorResponseDTO> UpdateAuthorAsync(int authorId, AuthorUpdateRequestDTO authorRequest);
 
-        Task<bool> DeleteAuthorAsync(int authorId);
+        Task<bool> DeleteAuthorAsync(int? authorId);
 
-        Task<IEnumerable<BookResponse>> GetBooksByAuthorAsync(int authorId);
+        Task<IEnumerable<BookResponse>> GetBooksByAuthorAsync(int? authorId);
 
-        Task<AuthorResponse?> GetAuthorsOfBookAsync(int bookId);
+        Task<AuthorResponse?> GetAuthorsOfBookAsync(int? bookId);
 
         Task<IEnumerable<AuthorResponse>> GetPopularAuthorsAsync(int count);
     }

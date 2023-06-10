@@ -10,13 +10,13 @@ namespace ServiceContracts
     public interface IBorrowersService
     {
 
-        IEnumerable<BorrowerResponse> BorrowerSearchByAsync(string field, string searchValue);
+        Task<IEnumerable<BorrowerResponse>> BorrowerSearchByAsync(string field, string searchValue);
 
 
 
         Task<BorrowerResponse> AddBorrowerAsync(BorrowerAddRequest borrowerRequest);
 
-        Task<BorrowerResponse> GetBorrowerByIdAsync(int borrowerId);
+        Task<BorrowerResponse?> GetBorrowerByIdAsync(int borrowerId);
 
         Task<IEnumerable<BorrowerResponse>> GetAllBorrowersAsync();
 

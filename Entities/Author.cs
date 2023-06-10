@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Entities
     public class Author
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int ID { get; set; }
 
         [StringLength(50 , ErrorMessage = "The Name field cannot exceed 50 characters.")]
@@ -31,6 +34,7 @@ namespace Entities
 
 
         // Navigation property
+        [InverseProperty("Author")] // Specify the navigation property to which it is inverse
         public ICollection<Book>? Books { get; set; }
     }
 }

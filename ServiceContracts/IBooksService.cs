@@ -17,10 +17,10 @@ namespace ServiceContracts
         Task<BookResponse> DeleteBookAsync(int? bookId);
         Task<IEnumerable<BookResponse>> BookSearchByAcync(string field, string searchValue);
         Task<IEnumerable<BookResponse>> GetSortedBookAsync(IEnumerable<BookResponse> allPersons, string sortBy, SortOrderOptions sortOrder);
-        Task<bool> IsBookAvailableAsync(int bookId);
+        Task<bool> IsBookAvailableAsync(int? bookId);
         Task<IEnumerable<BookResponse>> GetAvailableBooksAsync();
         Task<bool> ExistsByISBNAsync(string ISBN);
-        Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int authorId);
+        Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int? authorId);
         Task<IEnumerable<BookResponse>> GetMostBorrowedBooksAsync(int count); 
 
         //UpdateBook(BookUpdateRequest bookUpdate)

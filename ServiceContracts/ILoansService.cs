@@ -9,7 +9,7 @@ namespace ServiceContracts
 {
     public interface ILoansService
     {
-        Task<LoanResponse> BorrowBookAsync(int bookId, int borrowerId);
+        Task<LoanResponse> BorrowBookAsync(int? bookId, int? borrowerId);
 
         Task<LoanResponse> ReturnBookAsync(int loanId);
 
@@ -19,9 +19,10 @@ namespace ServiceContracts
 
         Task<LoanResponse> ExtendLoanAsync(int loanId, int extensionDays);
 
-        Task<int> GetLoanDurationAsync(int loanId);
+        Task<int> GetActiveLoanDurationAsync(int loanId);
+        Task<int> GetInactiveLoanDurationAsync(int loanId);
 
-        Task<LoanResponse> GetLoanByIdAsync(int loanId);
+        Task<LoanResponse> GetLoanByIdAsync(int? loanId);
 
         Task<IEnumerable<LoanResponse>> GetLoansByBookAsync(int bookId);
 

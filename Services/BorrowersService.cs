@@ -75,19 +75,19 @@ namespace Services
             IEnumerable<Borrower> borrowers = await _dbContext.Borrowers.ToListAsync();
             return borrowers.Select(b => b.ToBorrowerResponse());
         }
-        public async Task<BorrowerResponse> GetBorrowerByIdAsync(int borrowerId)
+        public async Task<BorrowerResponse?> GetBorrowerByIdAsync(int borrowerId)
         {
             // Check if borrowerId is not null
-            if (borrowerId == null)
+            if (borrowerId< 0)
                 throw new ArgumentNullException(nameof(borrowerId));
 
             // Get matching borrower from database
-            Borrower borrower = await _dbContext.Borrowers.FirstOrDefaultAsync(b => b.ID == borrowerId);
+            Borrower? borrower = await _dbContext.Borrowers.FirstOrDefaultAsync(b => b.ID == borrowerId);
 
             if (borrower == null)
                 return null;
 
-            BorrowerResponse borrowerResponse = borrower.BorrowerToBorrowerResponse();
+            BorrowerResponse borrowerResponse = borrower.ToBorrowerResponse();
             return borrowerResponse;
         }
         public async Task<bool> DeleteBorrowerAsync(int borrowerId)
@@ -134,5 +134,7 @@ namespace Services
         {
             throw new NotImplementedException();
         }
+
+     
     }
 }

@@ -15,6 +15,8 @@ namespace Entities
         //NumberOfPages(int)
         //Quantity(int)
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int ID { get; set; }
 
         [Required(ErrorMessage = "The Title field is required.")]

@@ -135,10 +135,10 @@ namespace Services
         }
 
 
-        public async Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int authorId)
+        public async Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int? authorId)
         {
             //check authorId
-            if(authorId <= 0) throw new ArgumentException();
+            if(authorId == null) throw new ArgumentException("authorId is null");
 
             //get author
             Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
@@ -167,14 +167,14 @@ namespace Services
         }
 
 
-        public async Task<bool> IsBookAvailableAsync(int bookId)
+        public async Task<bool> IsBookAvailableAsync(int? bookId)
         {
             //// Check if there are any active loans for the specified bookId
             //bool isBookAvailable = await _dbContext.Loans
             //    .AnyAsync(l => l.BookID == bookId && l.ReturnDate == null);
 
             //return !isBookAvailable;
-            if (bookId < 0) return false;
+            if (bookId == null) return false;
 
             Book? book = await _dbContext.Books
              .Where(b => b.Quantity > 0)

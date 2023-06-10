@@ -19,7 +19,7 @@ namespace Services
         {
             _dbContext = dbContext;
         }
-        public async Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest authorRequest)
+        public async Task<AuthorResponse> AddAuthorAsync(AuthorAddRequest? authorRequest)
         {
             if(authorRequest == null) throw new ArgumentNullException(nameof(authorRequest));
 
@@ -47,27 +47,27 @@ namespace Services
             return authorResponses;
         }
 
-        public async Task<AuthorResponse> GetAuthorByIdAsync(int authorId)
+        public async Task<AuthorResponse?> GetAuthorByIdAsync(int? authorId)
         {
             // Check if authorId is not null
             if (authorId == null)
-                throw new ArgumentNullException(nameof(authorId));
+                throw new ArgumentException(nameof(authorId) + "is null");
 
             // Get matching author from database
-            Author author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
+            Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
 
             if (author == null)
                 return null;
 
-            AuthorResponse authorResponse = author.AuthorToAuthorResponse();
+            AuthorResponse authorResponse = author.ToAuthorResponse();
             return authorResponse;
         }
 
-        public async Task<bool> DeleteAuthorAsync(int authorId)
+        public async Task<bool> DeleteAuthorAsync(int? authorId)
         {
             // Check if authorId is not null
             if (authorId == null)
-                throw new ArgumentNullException(nameof(authorId));
+                throw new ArgumentException("AuthorId is null");
 
             // Get the author from the database
             Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
@@ -82,9 +82,9 @@ namespace Services
             return true;
         }
         //todo : change author to authors 
-        public async Task<AuthorResponse?> GetAuthorsOfBookAsync(int bookId)
+        public async Task<AuthorResponse?> GetAuthorsOfBookAsync(int? bookId)
         {
-            if (bookId < 0) throw new ArgumentException("Invalid book ID.");
+            if (bookId == null) throw new ArgumentNullException("Invalid book ID.");
 
             Book? book = await _dbContext.Books.FirstOrDefaultAsync(b => b.ID == bookId);
             if (book == null) return null;
@@ -92,15 +92,15 @@ namespace Services
             return author.ToAuthorResponse();
         }
 
-        public async Task<IEnumerable<BookResponse>> GetBooksByAuthorAsync(int authorId)
+        public async Task<IEnumerable<BookResponse>> GetBooksByAuthorAsync(int? authorId)
         {
-            if (authorId < 0) throw new ArgumentException("invalid authorId");
+            if (authorId == null) throw new ArgumentNullException("invalid authorId");
 
              List<Book> booksByAuthor = 
                 await _dbContext.Books
                 .Where(b => b.AuthorID == authorId).ToListAsync();
 
-            List<BookResponse> bookResponses = booksByAuthor.Select(b => b.BookToBookResponse());
+            List<BookResponse> bookResponses = booksByAuthor.Select(b => b.BookToBookResponse()).ToList();
             return bookResponses;
         }
 
@@ -129,7 +129,7 @@ namespace Services
             return authorResponses;
         }
 
-        public async Task<IEnumerable<AuthorResponse>> SearchAuthorsAsync(string searchTerm)
+        public async Task<IEnumerable<AuthorResponse>> SearchAuthorsAsync(string? searchTerm)
         {
             // Check if the search term is null or empty
             if (string.IsNullOrEmpty(searchTerm))

@@ -11,6 +11,7 @@ namespace Entities
     public class Loan
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Loan date is required.")]
@@ -25,6 +26,7 @@ namespace Entities
 
         [Required(ErrorMessage = "Borrower is required.")]
         public int BorrowerID { get; set; }
+        public bool Active { get; set; } // Indicates if the book is still on loan
 
 
 
