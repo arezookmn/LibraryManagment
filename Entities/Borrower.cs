@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,13 +12,14 @@ namespace Entities
     public class Borrower
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+      //  [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int ID { get; set; }
 
         [Required(ErrorMessage = "The First Name field is required.")]
         [StringLength(50, ErrorMessage = "The First Name field cannot exceed 50 characters.")]
-        public string? FirstName { get; set; }
+        public string?
+        FirstName { get; set; }
 
         [Required(ErrorMessage = "The Last Name field is required.")]
         [StringLength(50, ErrorMessage = "The Last Name field cannot exceed 50 characters.")]

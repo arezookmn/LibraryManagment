@@ -16,7 +16,7 @@ namespace ServiceContracts
 
         Task<BorrowerResponse> AddBorrowerAsync(BorrowerAddRequest borrowerRequest);
 
-        Task<BorrowerResponse?> GetBorrowerByIdAsync(int borrowerId);
+        Task<BorrowerResponse?> GetBorrowerByIdAsync(int? borrowerId);
 
         Task<IEnumerable<BorrowerResponse>> GetAllBorrowersAsync();
 
@@ -24,7 +24,7 @@ namespace ServiceContracts
 
         //Task<BorrowerResponse> UpdateBorrowerAsync(int borrowerId, BorrowerUpdateRequest borrowerRequest);
 
-        Task<bool> DeleteBorrowerAsync(int borrowerId);
+        Task<bool> DeleteBorrowerAsync(int? borrowerId);
 
         Task<IEnumerable<BookResponse>> GetBorrowedBooksAsync(int borrowerId);
 

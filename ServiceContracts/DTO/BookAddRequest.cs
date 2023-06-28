@@ -19,7 +19,7 @@ namespace ServiceContracts.DTO
         [Required(ErrorMessage = "The Author Id is required ")]
         public int AuthorID { get; set; }
 
-        //[Required(ErrorMessage = "The ISBN field is required.")]
+        [Required(ErrorMessage = "The ISBN field is required.")]
         [RegularExpression(@"\b\d{9}(\d|X)\b", ErrorMessage = "Invalid ISBN format. The ISBN should be a 10-digit or 13-digit code.")]
         public string? ISBN { get; set; }
 

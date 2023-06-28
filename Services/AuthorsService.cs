@@ -32,7 +32,7 @@ namespace Services
             Author newAuthor = authorRequest.ToAuthor();
 
             //Add to repository
-            await _dbContext.Authors.AddAsync(newAuthor);
+            _dbContext.Authors.Add(newAuthor);
             await _dbContext.SaveChangesAsync();
 
             AuthorResponse authorResponse = newAuthor.ToAuthorResponse();
@@ -51,7 +51,7 @@ namespace Services
         {
             // Check if authorId is not null
             if (authorId == null)
-                throw new ArgumentException(nameof(authorId) + "is null");
+                return null;
 
             // Get matching author from database
             Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
@@ -67,7 +67,7 @@ namespace Services
         {
             // Check if authorId is not null
             if (authorId == null)
-                throw new ArgumentException("AuthorId is null");
+                throw new ArgumentNullException("AuthorId is null");
 
             // Get the author from the database
             Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
@@ -81,6 +81,7 @@ namespace Services
 
             return true;
         }
+
         //todo : change author to authors 
         public async Task<AuthorResponse?> GetAuthorsOfBookAsync(int? bookId)
         {

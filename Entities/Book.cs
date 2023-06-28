@@ -15,15 +15,17 @@ namespace Entities
         //NumberOfPages(int)
         //Quantity(int)
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int ID { get; set; }
 
         [Required(ErrorMessage = "The Title field is required.")]
         public string? Title { get; set; }
+
+        [Required(ErrorMessage = "The AutorID field is required.")]
         public int AuthorID { get; set; }
 
-        //[Required(ErrorMessage = "The ISBN field is required.")]
+        [Required(ErrorMessage = "The ISBN field is required.")]
         [RegularExpression(@"\b\d{9}(\d|X)\b", ErrorMessage = "Invalid ISBN format. The ISBN should be a 10-digit or 13-digit code.")]
         public string? ISBN { get; set; }
 

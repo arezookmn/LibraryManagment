@@ -28,8 +28,7 @@ namespace ServiceContracts.DTO
         public string? Biography { get; set; }
 
 
-        // Navigation property
-        //public ICollection<Book>? Books { get; set; }
+
 
 
         public Author ToAuthor()

@@ -23,12 +23,13 @@ namespace Services
             ValidationHelper.Validate(bookAddRequest);
 
             //check for uniqe ISBN 
-            bool exist = await ExistsByISBNAsync(bookAddRequest?.ISBN);
-            if(exist)
+            int ISBNCount = await _dbContext.Books.CountAsync(temp => temp.ISBN == bookAddRequest.ISBN);
+            if (ISBNCount > 0)
             {
                 // Handle duplicate ISBN
-                throw new InvalidOperationException("A book with the same ISBN already exists");
+                throw new ArgumentException("A book with the same ISBN already exists");
             }
+
 
             // Create a new Book entity
             Book newBook = bookAddRequest.ToBook();
@@ -92,13 +93,14 @@ namespace Services
         public async Task<IEnumerable<BookResponse>> GetAllBooksAsync()
         {
             IEnumerable<Book> books = await _dbContext.Books.ToListAsync();
-            return books.Select(b => b.BookToBookResponse()).ToList();
+            IEnumerable<BookResponse> bookResponses = books.Select(b => b.BookToBookResponse()).ToList();
+            return bookResponses;
         }
 
         public async Task<BookResponse> GetBookByIdAsync(int? bookId)
         {
             //check bookId is not null
-            if(bookId == null) throw new ArgumentNullException(nameof(bookId));
+            if(bookId == null) return null;
             //Get matching book from database
             Book? book = await _dbContext.Books.FirstOrDefaultAsync(book => book.ID == bookId);
 
@@ -108,21 +110,20 @@ namespace Services
             return bookResponse;
         }
 
-        public async Task<BookResponse> DeleteBookAsync(int? bookId)
+        public async Task<bool> DeleteBookAsync(int? bookId)
         {
             //check bookId is not null
             if (bookId == null) throw new ArgumentNullException();
             //get book from database 
             Book? bookFromDB = await _dbContext.Books.FirstOrDefaultAsync(b => b.ID == bookId);
             //Remove book from database 
-            if (bookFromDB == null) return null;
+            if (bookFromDB == null) return false;
 
                 _dbContext.Books.Remove(bookFromDB);
                 //save changes
                 await _dbContext.SaveChangesAsync();
 
-                //convert to bookResponse and return 
-                return bookFromDB.BookToBookResponse();
+                return true;
         }
 
 
@@ -138,7 +139,7 @@ namespace Services
         public async Task<IEnumerable<BookResponse>?> GetBooksByAuthorAsync(int? authorId)
         {
             //check authorId
-            if(authorId == null) throw new ArgumentException("authorId is null");
+            if(authorId == null) return null;
 
             //get author
             Author? author = await _dbContext.Authors.FirstOrDefaultAsync(a => a.ID == authorId);
@@ -185,16 +186,6 @@ namespace Services
             else return true;
         }
 
-
-        public async Task<bool> ExistsByISBNAsync(string ISBN)
-        {
-            Book? book = await _dbContext.Books.FirstOrDefaultAsync(b => b.ISBN == ISBN);
-            if (book != null)
-            {
-                return true;
-            }
-            else return false;
-        }
 
 
         public Task<IEnumerable<BookResponse>> GetSortedBookAsync(IEnumerable<BookResponse> allBooks, string sortBy, SortOrderOptions sortOrder)

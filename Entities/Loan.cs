@@ -11,7 +11,7 @@ namespace Entities
     public class Loan
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Loan date is required.")]

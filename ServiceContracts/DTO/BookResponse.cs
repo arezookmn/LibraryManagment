@@ -30,7 +30,31 @@ namespace ServiceContracts.DTO
 
         public int Quantity { get; set; }
 
-       // public int Count { get; set; } // New property for count
+        // public int Count { get; set; } // New property for count
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            BookResponse other = (BookResponse)obj;
+
+            return ID == other.ID &&
+                   Title == other.Title &&
+                   AuthorID == other.AuthorID &&
+                   ISBN == other.ISBN &&
+                   PublicationDate == other.PublicationDate &&
+                   NumberOfPages == other.NumberOfPages &&
+                   Quantity == other.Quantity;
+        }
+
+        public override int GetHashCode()
+        {
+            // Use a hash code implementation that takes into account the properties used in the Equals method
+            return HashCode.Combine(ID, Title, AuthorID, ISBN, PublicationDate, NumberOfPages, Quantity);
+        }
 
     }
 

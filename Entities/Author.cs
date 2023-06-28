@@ -11,11 +11,11 @@ namespace Entities
     public class Author
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int ID { get; set; }
 
-        [StringLength(50 , ErrorMessage = "The Name field cannot exceed 50 characters.")]
+        [StringLength(100 , ErrorMessage = "The Name field cannot exceed 50 characters.")]
         [Required(ErrorMessage = "The Name field is required.")]
         public string? Name { get; set; }
 
@@ -25,7 +25,7 @@ namespace Entities
         public DateTime BirthDate { get; set; }
 
         //[Required(ErrorMessage = "The Nationality field is required.")]
-        [StringLength(50 , ErrorMessage = "The Nationality field cannot exceed 50 characters.")]
+        [StringLength(100 , ErrorMessage = "The Nationality field cannot exceed 50 characters.")]
         public string? Nationality { get; set; }
 
         //[Required(ErrorMessage = "The Biography field is required.")]

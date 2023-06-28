@@ -9,10 +9,10 @@ namespace Entities
 {
     public class LibraryDbContext : DbContext
     {
-        public DbSet<Book> Books { get; set; }
-        public DbSet<Borrower> Borrowers { get; set; }
-        public DbSet<Loan> Loans { get; set; }
-        public DbSet<Author> Authors { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Borrower> Borrowers { get; set; }
+        public virtual DbSet<Loan> Loans { get; set; }
+        public virtual DbSet<Author> Authors { get; set; }
 
         public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options) 
         {
@@ -28,21 +28,21 @@ namespace Entities
             modelBuilder.Entity<Loan>().ToTable("Loans");
             modelBuilder.Entity<Author>().ToTable("Authors");
 
-            //modelBuilder.Entity<Book>()
-            //.Property(b => b.ID)
-            //.ValueGeneratedOnAdd();
+            modelBuilder.Entity<Book>()
+            .Property(b => b.ID)
+            .ValueGeneratedOnAdd();
 
-            //modelBuilder.Entity<Author>()
-            //.Property(a => a.ID)
-            //.ValueGeneratedOnAdd();
+            modelBuilder.Entity<Author>()
+            .Property(a => a.ID)
+            .ValueGeneratedOnAdd();
 
-            //modelBuilder.Entity<Borrower>()
-            //.Property(a => a.ID)
-            //.ValueGeneratedOnAdd();
+            modelBuilder.Entity<Borrower>()
+            .Property(a => a.ID)
+            .ValueGeneratedOnAdd();
 
-            //modelBuilder.Entity<Loan>()
-            //.Property(a => a.ID)
-            //.ValueGeneratedOnAdd();
+            modelBuilder.Entity<Loan>()
+            .Property(a => a.ID)
+            .ValueGeneratedOnAdd();
 
             // Book seed data
             modelBuilder.Entity<Book>().HasData(
